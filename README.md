@@ -1,8 +1,3 @@
-1) For add the book    POST https://bookapp-7i1v.onrender.com/api/createbook          
-2) Get all books details  GET  https://bookapp-7i1v.onrender.com/api/                            
-3) Get any single book details by its ID GET  https://bookapp-7i1v.onrender.com/api/:id  
-4) For update bookdetail by its id PUT https://bookapp-7i1v.onrender.com/api/updatebook/:id
-5) For delete bookdetail by its id  DELETE https://bookapp-7i1v.onrender.com/api/:id 
 
 Deployment process
 

@@ -1,67 +1,67 @@
- const Book = require('../models/bookModel.js');
+const Book = require('../models/bookModel');
 
 // Create a new book
-exports.createBook = async (req, res) => {
+exports.addNewBook = async (req, res) => {
+  const { title, author } = req.body;
+  const existingBook = await Book.findOne({ title, author });
+
+  if (existingBook) {
+    return res.status(400).send({ message: 'Book with the same title and author already exists' });
+  }
   try {
-    // Check if a book with the same title and author already exists
-    const existingBook = await Book.findOne({
-      title: req.body.title,
-      author: req.body.author,
-    });
-
-    if (existingBook) {
-      // If a book with the same title and author exists, return a message
-      return res.status(400).json({ error: 'Book already exists' });
-    }
-
-    // If no book with the same title and author exists, create and save the new book
-    const book = new Book(req.body);
-    await book.save();
-    res.status(201).json(book);
+    const newBook = new Book(req.body);
+    await newBook.save();
+    res.status(201).send({ message: 'Book details successfully added', book: newBook });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).send({ err: 'Incorrect id' });
   }
 };
 
 // Get a list of all books
-exports.getAllBooks = async (req, res) => {
-  const books = await Book.find();
-  res.status(200).json(books);
+exports.getAllBooksDetails = async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.status(200).send({ message: 'List of all books details fetched successfully', books });
+  } catch (err) {
+    res.status(500).send({ err: 'Incorrect id' });
+  }
 };
 
 // Get details of a specific book by ID
-exports.getBookById = async (req, res) => {
-  const book = await Book.findById(req.params.id);
-  if (!book) {
-    return res.status(404).json({ error: 'Book not found' });
+exports.getBookDetailsById = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+      return res.status(404).send({ error: 'Book not found' });
+    }
+    res.status(200).send({ message: 'Book details fetched successfully', book });
+  } catch (err) {
+    res.status(500).send({ err: 'Incorrect id' });
   }
-  res.status(200).json(book);
 };
 
-// Update a book's details by id api
-exports.updateBook = async (req, res) => {
+// Update a book's details
+exports.updateBookDetailsById = async (req, res) => {
   try {
     const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!book) {
-      return res.status(404).json({ error: 'Book not found' });
+      return res.status(404).send({ error: 'Book not found' });
     }
-    res.status(200).json(book);
+    res.status(200).send({ message: 'Book details successfully updated', book });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).send({ err: 'Incorrect id' });
   }
 };
 
-// Delete a book api
-exports.deleteBook = async (req, res) => {
+// Delete a book
+exports.deleteBookById = async (req, res) => {
   try {
     const book = await Book.findByIdAndRemove(req.params.id);
     if (!book) {
-      return res.status(404).json({ error: 'Book not found' });
+      return res.status(404).send({ error: 'Book not found' });
     }
-    // If the book was successfully deleted, provide a success message
-    res.status(200).json({ message: 'Book is deleted' });
+    res.status(200).send({ message: 'Book is deleted successfully' });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).send({ err: 'Incorrect id' });
   }
 };
-
