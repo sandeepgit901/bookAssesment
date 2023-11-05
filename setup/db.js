@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-// const m  ="mongodb+srv://deshmukh2867:deshmukh2867@cluster0.ptidhhi.mongodb.net/?retryWrites=true&w=majority"
+ const mongoUrl  ="mongodb+srv://deshmukh2867:deshmukh2867@cluster0.ptidhhi.mongodb.net/?retryWrites=true&w=majority"
 
-const mongoUrl = "mongodb://localhost:27017/Book"
+// const mongoUrl = "mongodb://localhost:27017/Book"
 
 module.exports = ()=>{
     mongoose.connect( `${mongoUrl}` )
