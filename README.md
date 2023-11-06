@@ -1,3 +1,9 @@
+APIend points 
+1) Create Book Api           https://bookapp-hznz.onrender.com/api/addbook  
+2) Get all api's details     https://bookapp-hznz.onrender.com/api/getallbooks/
+3) Get bookdetails by id     https://bookapp-hznz.onrender.com/api/getbookdetails/
+4) Update book details by id https://bookapp-hznz.onrender.com/api/updatebook/
+5)Delete book details by id  https://bookapp-hznz.onrender.com/api/deletebook/
 
 Deployment process
 
